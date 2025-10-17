@@ -12,6 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Main::run);
+
     }
 
     public static void run() {
@@ -19,6 +20,13 @@ public class Main {
 
         FlatLightLaf.setup();
         BaseScreen base = new BaseScreen();
+        try {
+            om.fetchOutbreakFromBackend();
+        }
+        catch(Exception e)
+        {
+            System.out.println("An error occured!");
 
+        }
     }
 }
