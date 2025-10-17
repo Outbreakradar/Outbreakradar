@@ -11,4 +11,8 @@ public class Location {
         this.state=state;
         this.place=place;
     }
+
+    public static Location testLocation() {
+        return new Location("India", "Kerala", "Mookkannoor");
+    }
 }

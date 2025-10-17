@@ -10,4 +10,11 @@ public class Outbreak {
         this.disease=disease;
         this.description=description;
     }
+
+    public static Outbreak testOutbreak() {
+        Location[] locations = new Location[] {Location.testLocation(), Location.testLocation()};
+        Disease d = new Disease("dengue", null, null);
+
+        return new Outbreak(locations, d, "Given info is fake and only for testing purposes");
+    }
 }
