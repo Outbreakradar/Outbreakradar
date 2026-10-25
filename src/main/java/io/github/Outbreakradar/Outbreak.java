@@ -17,4 +17,11 @@ public class Outbreak {
 
         return new Outbreak(locations, d, "Given info is fake and only for testing purposes");
     }
+
+    public void print() {
+        System.out.println(disease.name);
+        for (Location l : locations) {
+            System.out.print(l.place + " ");
+        }
+    }
 }

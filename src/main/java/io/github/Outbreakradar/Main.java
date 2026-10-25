@@ -20,13 +20,13 @@ public class Main {
 
         FlatLightLaf.setup();
         BaseScreen base = new BaseScreen();
-        try {
-            om.fetchOutbreakFromBackend();
-        }
-        catch(Exception e)
-        {
-            System.out.println("An error occured!");
-
-        }
+//        try {
+//            om.fetchOutbreakFromBackend();
+//        }
+//        catch(Exception e)
+//        {
+//            System.out.println("An error occured!");
+//
+//        }
     }
 }

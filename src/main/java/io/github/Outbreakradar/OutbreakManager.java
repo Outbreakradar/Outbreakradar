@@ -6,29 +6,40 @@ import java.net.URI;
 import java.io.IOException;
 import java.net.http.HttpClient;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class OutbreakManager {
-    Outbreak[] outbreaks;
+    HashMap<String, Outbreak[]> outbreaks;
 
-    // Only for testing purposes
-    Outbreak[] testFetchOutbreaksFromBackend() {
-        outbreaks = new Outbreak[] {};
 
-        ArrayList<Outbreak> o = new ArrayList<>();
-
-        o.add(Outbreak.testOutbreak());
-        o.add(Outbreak.testOutbreak());
-        o.add(Outbreak.testOutbreak());
-
-        outbreaks = o.toArray(outbreaks);
-        return outbreaks;
+    public OutbreakManager() {
+        outbreaks = new HashMap<>();
     }
-    Outbreak[] fetchOutbreakFromBackend()throws IOException,InterruptedException
+    // Only for testing purposes
+//    Outbreak[] testFetchOutbreaksFromBackend() {
+//        outbreaks = new Outbreak[] {};
+//
+//        ArrayList<Outbreak> o = new ArrayList<>();
+//
+//        o.add(Outbreak.testOutbreak());
+//        o.add(Outbreak.testOutbreak());
+//        o.add(Outbreak.testOutbreak());
+//
+//        outbreaks = o.toArray(outbreaks);
+//        return outbreaks;
+//    }
+
+    Outbreak[] fetchOutbreakFromBackend(String state)throws IOException,InterruptedException
     {
-        Outbreak[] o = new Outbreak[100];
-        int count=0;
+
+        if (outbreaks.containsKey(state)) {
+            return outbreaks.get(state);
+        }
+
+        List<Outbreak> o = new ArrayList<>();
         HttpClient client = HttpClient.newHttpClient();
-        String jsonInput = "{\"location\":\""+"Kerala"+"\"}";
+        String jsonInput = "{\"location\":\""+state+"\"}";
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://matqlwjthgrctmwpsfsu.supabase.co/functions/v1/smooth-function"))
                 .header("Content-Type", "application/json")
@@ -43,10 +54,31 @@ public class OutbreakManager {
         System.out.println("Response body: " + response.body());
         String res=response.body();
         String newRes=res.substring(1,res.length()-1);
-        Gson gson = new Gson();
-        Disease d1=gson.fromJson(newRes,Disease.class);
 
-        return o;
+        Gson gson = new Gson();
+        OutbreakJson[] outbreakJsons = gson.fromJson(res, OutbreakJson[].class);
+
+        for (OutbreakJson oj : outbreakJsons) {
+
+//            System.out.println("DISEASE NAME: " + oj.diseaseName);
+
+            Location[] locations = new Location[oj.outbreakLocations.length];
+            for (int j = 0; j < oj.outbreakLocations.length; j++) {
+                locations[j] = new Location("India", state, oj.outbreakLocations[j]);
+            }
+
+            Disease d = new Disease(oj.diseaseName, null, null);
+
+            Outbreak i = new Outbreak(locations, d, oj.description);
+            o.add(i);
+
+//            i.print();
+//            System.out.println();
+        }
+
+        Outbreak[] oArray = o.toArray(new Outbreak[0]);
+        outbreaks.put(state, oArray);
+        return oArray;
     }
 
 

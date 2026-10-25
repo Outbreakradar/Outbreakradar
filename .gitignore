@@ -1,22 +1,54 @@
-.gradle
+# ---------------------------------------------------------------------------
+# Gradle
+# ---------------------------------------------------------------------------
+.gradle/
 build/
-!gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+gradle-app.setting
+.gradletasknamecache
+local.properties
 
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-*.iws
-*.iml
-*.ipr
+# ---------------------------------------------------------------------------
+# Compiled output (Java)
+# ---------------------------------------------------------------------------
+*.class
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+*.war
+*.ear
+*.nar
 out/
+bin/
+target/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
-### Eclipse ###
+# JVM crash logs / recordings
+hs_err_pid*
+replay_pid*
+*.hprof
+*.jfr
+
+# ---------------------------------------------------------------------------
+# IntelliJ IDEA
+# Ignore everything, then allow the shared project files.
+# ---------------------------------------------------------------------------
+.idea/*
+!.idea/.gitignore
+!.idea/codeStyles/
+!.idea/gradle.xml
+!.idea/misc.xml
+!.idea/inspectionProfiles/
+!.idea/uiDesigner.xml
+!.idea/vcs.xml
+*.iws
+*.iml
+*.ipr
+
+# ---------------------------------------------------------------------------
+# Eclipse / NetBeans (in case of other IDE usage)
+# ---------------------------------------------------------------------------
 .apt_generated
 .classpath
 .factorypath
@@ -24,19 +56,36 @@ out/
 .settings
 .springBeans
 .sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
+nbproject/private/
+nbbuild/
+nbdist/
+.nb-gradle/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-### VS Code ###
+# ---------------------------------------------------------------------------
+# VS Code
+# ---------------------------------------------------------------------------
 .vscode/
 
-### Mac OS ###
+# ---------------------------------------------------------------------------
+# OS / editor cruft
+# ---------------------------------------------------------------------------
 .DS_Store
+._*
+Thumbs.db
+desktop.ini
+*~
+*.swp
+*.swo
+
+# ---------------------------------------------------------------------------
+# Logs, env, secrets
+# ---------------------------------------------------------------------------
+*.log
+.env
+.env.*
+
+# ---------------------------------------------------------------------------
+# Project-specific generated files
+# ---------------------------------------------------------------------------
+# Concatenated source dump produced by process_java_files.py
+src/main/java/io/github/Outbreakradar/java_files_content.txt

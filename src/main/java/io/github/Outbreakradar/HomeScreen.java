@@ -14,8 +14,8 @@ public class HomeScreen extends JPanel {
         setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
 //        setAlignmentY(Component.TOP_ALIGNMENT);
 
-        MapComponent mc = new MapComponent();
         RecentComponent rc = new RecentComponent();
+        MapComponent mc = new MapComponent(rc);
 
 //        mc.setAlignmentY(Component.TOP_ALIGNMENT);
 

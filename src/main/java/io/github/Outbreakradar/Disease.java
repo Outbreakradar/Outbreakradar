@@ -24,7 +24,7 @@ public class Disease {
        }
        HttpClient client = HttpClient.newHttpClient();
 
-       String jsonInput = "{\"name\":\""+this.name.toLowerCase()+"\"}";
+       String jsonInput = "{\"name\":\""+this.name+"\"}";
 
        HttpRequest request = HttpRequest.newBuilder()
                .uri(URI.create("https://matqlwjthgrctmwpsfsu.supabase.co/functions/v1/fetchDiseaseDetails"))
@@ -39,10 +39,15 @@ public class Disease {
        System.out.println("Status code: " + response.statusCode());
        System.out.println("Response body: " + response.body());
        String res=response.body();
-       String newRes=res.substring(1,res.length()-1);
+       String newRes=res;
+
+       if(res.charAt(0) == '[') {
+           newRes = res.substring(1,res.length()-1);
+       }
+
        Gson gson = new Gson();
        Disease d1=gson.fromJson(newRes,Disease.class);
-       this.name=d1.name;
+//       this.name=d1.name;
        this.symptoms= d1.symptoms;
        this.treatments= d1.treatments;
 
